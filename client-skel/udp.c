@@ -25,7 +25,7 @@ struct sockaddr_in createServerAddress(int port, char* server_ip)
     return server_addr;
 }
 
-void sendResgister(int sock, vpn_header_t header, struct sockaddr_in server_addr)
+ssize_t sendResgister(int sock, vpn_header_t header, struct sockaddr_in server_addr)
 {
-    sendto(sock, &header, VPN_HEADER_SIZE, 0, (struct sockaddr *)&server_addr, sizeof(server_addr));
+    return sendto(sock, &header, VPN_HEADER_SIZE, 0, (struct sockaddr *)&server_addr, sizeof(server_addr));
 }
