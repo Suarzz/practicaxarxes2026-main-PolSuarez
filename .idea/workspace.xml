@@ -13,12 +13,11 @@
     </generated>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5b6373f5-c8a8-4d38-968f-6827c345da86" name="Changes" comment="initial commit">
-      <change afterPath="$PROJECT_DIR$/client-skel/protocol.c" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client-skel/protocol.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/practicaxarxes2026-main.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/practicaxarxes2026-main.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client-skel/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/client-skel/Makefile" afterDir="false" />
+    <list default="true" id="5b6373f5-c8a8-4d38-968f-6827c345da86" name="Changes" comment="created reguster header creation method">
+      <change beforePath="$PROJECT_DIR$/.idea/practicaxarxes2026-main.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client-skel/protocol.c" beforeDir="false" afterPath="$PROJECT_DIR$/client-skel/protocol.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client-skel/udp.c" beforeDir="false" afterPath="$PROJECT_DIR$/client-skel/udp.c" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -142,7 +141,7 @@
       <option name="presentableId" value="Default" />
       <updated>1776452586217</updated>
       <workItem from="1776452593403" duration="8194000" />
-      <workItem from="1776680377868" duration="17000" />
+      <workItem from="1776680377868" duration="681000" />
     </task>
     <task id="LOCAL-00001" summary="initial commit">
       <option name="closed" value="true" />
@@ -160,7 +159,15 @@
       <option name="project" value="LOCAL" />
       <updated>1776527019257</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="created reguster header creation method">
+      <option name="closed" value="true" />
+      <created>1776680692349</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1776680692349</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -168,6 +175,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="initial commit" />
-    <option name="LAST_COMMIT_MESSAGE" value="initial commit" />
+    <MESSAGE value="created reguster header creation method" />
+    <option name="LAST_COMMIT_MESSAGE" value="created reguster header creation method" />
   </component>
 </project>
