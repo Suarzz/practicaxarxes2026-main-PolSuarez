@@ -4,19 +4,20 @@
 
 #include "udp.h"
 
+#include <unistd.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
 
 #include "protocol.h"
 
-int createSocket(void)
+int create_socket(void)
 {
     int sock = socket(AF_INET, SOCK_DGRAM, 0);
     return sock;
 }
 
-struct sockaddr_in createServerAddress(int port, char* server_ip)
+struct sockaddr_in create_server_address(int port, char* server_ip)
 {
     struct sockaddr_in server_addr;
     server_addr.sin_family = AF_INET;
@@ -25,7 +26,12 @@ struct sockaddr_in createServerAddress(int port, char* server_ip)
     return server_addr;
 }
 
-ssize_t sendResgister(int sock, vpn_header_t header, struct sockaddr_in server_addr)
+ssize_t send_to_server(int sock, vpn_header_t header, struct sockaddr_in server_addr)
 {
     return sendto(sock, &header, VPN_HEADER_SIZE, 0, (struct sockaddr *)&server_addr, sizeof(server_addr));
+}
+
+void close_socket(int sock)
+{
+    close(sock);
 }

@@ -26,7 +26,7 @@ vpn_header_t fill_payload(vpn_header_t header, char* password, uint64_t seq_num)
             header.payload[i] = password[i];
         }
         break;
-    case 0x03:
+    case 0x03: //TRAFFIC
             seq_num = htonll(seq_num);
             memcpy(header.payload, &seq_num, 8);
         break;
@@ -53,5 +53,4 @@ vpn_header_t create_pixes_header(uint16_t my_client_id, uint8_t opcode, char* pa
 
     return header;
 }
-
 
