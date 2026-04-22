@@ -4,7 +4,7 @@
 
 #ifndef PRACTICAXARXES2026_MAIN_PROTOCOL_H
 #define PRACTICAXARXES2026_MAIN_PROTOCOL_H
-#include <stdint.h>
+#include <string.h>
 #include <netinet/in.h>
 #endif //PRACTICAXARXES2026_MAIN_PROTOCOL_H
 
@@ -14,3 +14,5 @@ typedef struct {
     uint16_t client_id;
     uint8_t payload[8];
 } vpn_header_t;
+
+uint64_t htoll(uint64_t value);
