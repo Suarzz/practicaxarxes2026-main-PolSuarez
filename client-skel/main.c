@@ -6,6 +6,8 @@
 #include <signal.h>
 #include <sys/select.h>
 #include <sys/time.h>
+#include "udp.c"
+#include  "protocol.c"
 
 #include "tap.h"
 
@@ -172,7 +174,40 @@ static int parse_args(int argc, char *argv[], vpn_config_t *cfg)
         return 0;
     }
 
-    return 0;
+    return 1;
+}
+
+void client_run(vpn_config_t *cfg, int tap_fd)
+{
+    int sock = create_socket();
+    struct sockaddr_in server_addr = create_server_address(cfg->port, cfg->server_ip);
+
+    //5 second socket timeout
+    struct timeval tv;
+    tv.tv_sec = 5;
+    tv.tv_usec = 0;
+    setsockopt(sock, SOL_SOCKET, SO_RCVTIMEO, &tv, sizeof(tv)); //Set timer options
+
+    //Build and send RESGISTER
+    vpn_header_t reg_header = create_pixes_header(cfg->client_id, 0x01, "", 0);
+    ssize_t bytes_sent = send_to_server(sock, (uint8_t*)&reg_header, &server_addr, VPN_HEADER_SIZE);
+
+    //Wait for the server's reply
+    uint8_t buffer[MAX_FRAME_SIZE];
+    ssize_t bytes_received = receive_from_server(sock, buffer, MAX_FRAME_SIZE, &server_addr);
+
+    //If after the 5s there are no bytes received error
+    if (bytes_received < 0) {
+        printf("Error: Registration failed due to timeout.\n");
+        exit(EXIT_FAILURE);
+    }
+
+    vpn_header_t *received_header = (vpn_header_t *)buffer;
+    if (received_header->opcode != 0x01) { // Assuming 0x01 is ACK
+        printf("Error: Registration rejected by server.\n");
+        exit(EXIT_FAILURE);
+    }
+
 }
 
 int main(int argc, char *argv[])
@@ -191,7 +226,9 @@ int main(int argc, char *argv[])
         fprintf(stderr, "Error: could not open TAP device %s\n", cfg.tap_if);
         return 1;
     }
-    close(tap_fd);
+    //close(tap_fd);
+
+
 
     // TODO: Start client run loop, which should handle everything after this point, including:
     // - Sending keepalive packets to the server every KEEPALIVE_INTERVAL_SEC seconds

@@ -16,11 +16,10 @@
     </generated>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5b6373f5-c8a8-4d38-968f-6827c345da86" name="Changes" comment="created sendRegister method">
-      <change beforePath="$PROJECT_DIR$/.idea/practicaxarxes2026-main.iml" beforeDir="false" />
+    <list default="true" id="5b6373f5-c8a8-4d38-968f-6827c345da86" name="Changes" comment="renamed methods from udp.c">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client-skel/protocol.c" beforeDir="false" afterPath="$PROJECT_DIR$/client-skel/protocol.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client-skel/protocol.h" beforeDir="false" afterPath="$PROJECT_DIR$/client-skel/protocol.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client-skel/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/client-skel/main.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client-skel/udp.c" beforeDir="false" afterPath="$PROJECT_DIR$/client-skel/udp.c" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -116,11 +115,6 @@
   }
 }</component>
   <component name="RunManager" selected="Native Application.all">
-    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true">
-      <method v="2">
-        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="all" type="CLionNativeAppRunConfigurationType" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="practicaxarxes2026-main" TARGET_NAME="all" CONFIG_NAME="all" version="1">
       <method v="2">
         <option name="CLION.COMPOUND.BUILD" enabled="true" />
@@ -155,7 +149,8 @@
       <updated>1776452586217</updated>
       <workItem from="1776452593403" duration="8194000" />
       <workItem from="1776680377868" duration="1761000" />
-      <workItem from="1776855710585" duration="6304000" />
+      <workItem from="1776855710585" duration="9751000" />
+      <workItem from="1776882907666" duration="10215000" />
     </task>
     <task id="LOCAL-00001" summary="initial commit">
       <option name="closed" value="true" />
@@ -189,7 +184,23 @@
       <option name="project" value="LOCAL" />
       <updated>1776681606841</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="unified the create_pixes_header for all kinds of headers">
+      <option name="closed" value="true" />
+      <created>1776872426224</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1776872426225</updated>
+    </task>
+    <task id="LOCAL-00006" summary="renamed methods from udp.c">
+      <option name="closed" value="true" />
+      <created>1776874701354</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1776874701354</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -199,6 +210,8 @@
     <MESSAGE value="initial commit" />
     <MESSAGE value="created reguster header creation method" />
     <MESSAGE value="created sendRegister method" />
-    <option name="LAST_COMMIT_MESSAGE" value="created sendRegister method" />
+    <MESSAGE value="unified the create_pixes_header for all kinds of headers" />
+    <MESSAGE value="renamed methods from udp.c" />
+    <option name="LAST_COMMIT_MESSAGE" value="renamed methods from udp.c" />
   </component>
 </project>
