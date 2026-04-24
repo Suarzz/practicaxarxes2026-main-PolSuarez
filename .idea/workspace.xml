@@ -16,7 +16,7 @@
     </generated>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5b6373f5-c8a8-4d38-968f-6827c345da86" name="Changes" comment="Defined opcode macros to elimiate magic numbers code smell">
+    <list default="true" id="5b6373f5-c8a8-4d38-968f-6827c345da86" name="Changes" comment="Added extract opcode in protocol.c">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client-skel/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/client-skel/main.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client-skel/protocol.c" beforeDir="false" afterPath="$PROJECT_DIR$/client-skel/protocol.c" afterDir="false" />
@@ -43,12 +43,12 @@
     &quot;assignee&quot;: &quot;Suarzz&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/Suarzz/practicaxarxes2026-main-PolSuarez.git&quot;,
-    &quot;accountId&quot;: &quot;f1609191-745a-4a4a-b9f1-7fbeae22be2f&quot;
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/Suarzz/practicaxarxes2026-main-PolSuarez.git",
+    "accountId": "9321a071-a316-4cdd-9ac1-74bba7b0b532"
   }
-}</component>
+}]]></component>
   <component name="MacroExpansionManager">
     <option name="directoryName" value="L9GOtYbm" />
   </component>
@@ -151,7 +151,7 @@
       <workItem from="1776680377868" duration="1761000" />
       <workItem from="1776855710585" duration="9751000" />
       <workItem from="1776882907666" duration="10215000" />
-      <workItem from="1777026063746" duration="3721000" />
+      <workItem from="1777026063746" duration="14699000" />
     </task>
     <task id="LOCAL-00001" summary="initial commit">
       <option name="closed" value="true" />
@@ -209,7 +209,23 @@
       <option name="project" value="LOCAL" />
       <updated>1777026955544</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Finished AUTHENTICATING state for the client">
+      <option name="closed" value="true" />
+      <created>1777030792514</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1777030792514</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Added extract opcode in protocol.c">
+      <option name="closed" value="true" />
+      <created>1777049210001</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1777049210001</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -222,6 +238,8 @@
     <MESSAGE value="unified the create_pixes_header for all kinds of headers" />
     <MESSAGE value="renamed methods from udp.c" />
     <MESSAGE value="Defined opcode macros to elimiate magic numbers code smell" />
-    <option name="LAST_COMMIT_MESSAGE" value="Defined opcode macros to elimiate magic numbers code smell" />
+    <MESSAGE value="Finished AUTHENTICATING state for the client" />
+    <MESSAGE value="Added extract opcode in protocol.c" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added extract opcode in protocol.c" />
   </component>
 </project>

@@ -40,7 +40,7 @@ vpn_header_t fill_payload(vpn_header_t header, char* password, uint64_t seq_num)
     return header;
 }
 
-ssize_t extract_opcode(uint8_t * buffer)
+uint8_t extract_opcode(uint8_t * buffer)
 {
     vpn_header_t* received_header = (vpn_header_t *)buffer;
     return received_header->opcode;

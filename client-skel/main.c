@@ -4,6 +4,7 @@
 #include <ctype.h>
 #include <unistd.h>
 #include <signal.h>
+#include <linux/if_tun.h>
 #include <sys/select.h>
 #include <sys/time.h>
 #include "udp.c"
@@ -15,6 +16,9 @@
 #define KEEPALIVE_INTERVAL_SEC 10
 #define MAX_FRAME_SIZE         65535
 
+//global fds so the signal handler can access them
+int global_tap_fd;
+int global_sock_fd;
 
 /* Configuration parsed from command-line arguments */
 typedef struct {
@@ -180,6 +184,8 @@ static int parse_args(int argc, char *argv[], vpn_config_t *cfg)
 void client_run(vpn_config_t *cfg, int tap_fd)
 {
     int sock = create_socket();
+    global_sock_fd = sock;
+
     struct sockaddr_in server_addr = create_server_address(cfg->port, cfg->server_ip);
 
     //5 second socket timeout
@@ -193,11 +199,11 @@ void client_run(vpn_config_t *cfg, int tap_fd)
     ssize_t bytes_sent = send_to_server(sock, (uint8_t*)&reg_header, &server_addr, VPN_HEADER_SIZE);
 
     //Wait for the server's reply
-    uint8_t buffer[MAX_FRAME_SIZE];
+    uint8_t buffer[MAX_FRAME_SIZE + VPN_HEADER_SIZE]; //REVISAR
     ssize_t bytes_received = receive_from_server(sock, buffer, MAX_FRAME_SIZE, &server_addr);
 
     //If after the 5s there are no bytes received error
-    if (bytes_received < 0)
+    if (bytes_received <= 0)
     {
         printf("Error: Registration failed due to timeout.\n");
         exit(EXIT_FAILURE);
@@ -226,7 +232,7 @@ void client_run(vpn_config_t *cfg, int tap_fd)
 
         bytes_received = receive_from_server(sock, buffer, MAX_FRAME_SIZE, &server_addr);
 
-        if (bytes_received < 0)
+        if (bytes_received <= 0)
         {
             printf("Registration failed due to timeout. %i attempts remaining \n", auth_attempts_remaining);
             continue;
@@ -249,30 +255,73 @@ void client_run(vpn_config_t *cfg, int tap_fd)
 
     while (1)
     {
+        struct timeval keepalive_timer;
+        keepalive_timer.tv_sec = KEEPALIVE_INTERVAL_SEC;
+        keepalive_timer.tv_usec = 0;
+
         // Reset and fill the checklist
         FD_ZERO(&read_fds);
         FD_SET(sock, &read_fds);
         FD_SET(tap_fd, &read_fds);
 
         // Pause the program until the socket or TAP gets data
-        int activity = select(max_fd + 1, &read_fds, NULL, NULL, NULL);
+        int activity = select(max_fd + 1, &read_fds, NULL, NULL, &keepalive_timer);
 
         // Did the TAP device wake us up?
         if (FD_ISSET(tap_fd, &read_fds)) {
+            uint8_t eth_frame[MAX_FRAME_SIZE];
+            ssize_t frame_len = tap_read(tap_fd, eth_frame, sizeof(eth_frame));
+            uint8_t packet_buffer[MAX_FRAME_SIZE + VPN_HEADER_SIZE];
 
+            if (frame_len > 0)
+            {
+                vpn_header_t traffic_header = create_pixes_header(cfg->client_id, TRAFFIC_OPCODE, "", seq_num);
+                seq_num++;
+                memcpy(packet_buffer, &traffic_header, VPN_HEADER_SIZE);
+                memcpy(packet_buffer + VPN_HEADER_SIZE, eth_frame, frame_len);
+                bytes_sent = send_to_server(sock, packet_buffer, &server_addr, VPN_HEADER_SIZE + frame_len);
+
+            }
         }
 
         // Did the Socket wake us up?
         if (FD_ISSET(sock, &read_fds)) {
+            bytes_received = receive_from_server(sock, buffer, sizeof(buffer), &server_addr);
 
+            if (bytes_received > 0)
+            {
+                if (extract_opcode(buffer) == TRAFFIC_OPCODE && bytes_received > VPN_HEADER_SIZE)
+                {
+                    tap_write(tap_fd, buffer + VPN_HEADER_SIZE, bytes_received - VPN_HEADER_SIZE);
+                }
+            }
+
+        }
+
+        //No fds ready after 10secs, keepalive
+        if (activity == 0)
+        {
+            vpn_header_t keepalive_header = create_pixes_header(cfg->client_id, KEEPALIVE_OPCODE, "", 0);
+            bytes_sent = send_to_server(sock, (uint8_t *)&keepalive_header, &server_addr, VPN_HEADER_SIZE);
         }
     }
 
 
 }
 
+void handle_shutdown(int signum)
+{
+    close(global_sock_fd);
+    close(global_tap_fd);
+    exit(EXIT_SUCCESS);
+}
+
 int main(int argc, char *argv[])
 {
+    //kill signal handler
+    signal(SIGINT, handle_shutdown);
+    signal(SIGTERM, handle_shutdown);
+
     vpn_config_t cfg;
 
     int ret = parse_args(argc, argv, &cfg);
@@ -287,7 +336,7 @@ int main(int argc, char *argv[])
         fprintf(stderr, "Error: could not open TAP device %s\n", cfg.tap_if);
         return 1;
     }
-    //close(tap_fd);
+    global_tap_fd = tap_fd;
 
 
 
@@ -297,7 +346,7 @@ int main(int argc, char *argv[])
     // - Receiving packets from the server and writing them to the TAP device
     // You should implement this in a separate function (e.g. client_run) 
     // and keep code clean and tidy. 
-    // client_run(&cfg, tap_fd);
+    client_run(&cfg, tap_fd);
 
     return 0;
 }
