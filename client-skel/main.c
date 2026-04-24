@@ -189,7 +189,7 @@ void client_run(vpn_config_t *cfg, int tap_fd)
     setsockopt(sock, SOL_SOCKET, SO_RCVTIMEO, &tv, sizeof(tv)); //Set timer options
 
     //Build and send RESGISTER
-    vpn_header_t reg_header = create_pixes_header(cfg->client_id, 0x01, "", 0);
+    vpn_header_t reg_header = create_pixes_header(cfg->client_id, REGISTER_OPCODE, "", 0);
     ssize_t bytes_sent = send_to_server(sock, (uint8_t*)&reg_header, &server_addr, VPN_HEADER_SIZE);
 
     //Wait for the server's reply
@@ -203,7 +203,7 @@ void client_run(vpn_config_t *cfg, int tap_fd)
     }
 
     vpn_header_t *received_header = (vpn_header_t *)buffer;
-    if (received_header->opcode != 0x01) { // Assuming 0x01 is ACK
+    if (received_header->opcode != ACK_OPCODE) { //0x05 = ACK
         printf("Error: Registration rejected by server.\n");
         exit(EXIT_FAILURE);
     }

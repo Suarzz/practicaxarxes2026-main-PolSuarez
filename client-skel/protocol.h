@@ -9,6 +9,12 @@
 #endif //PRACTICAXARXES2026_MAIN_PROTOCOL_H
 
 #define VPN_HEADER_SIZE 11
+#define REGISTER_OPCODE 0x01
+#define AUTH_OPCODE 0x02
+#define TRAFFIC_OPCODE 0x03
+#define KEEPALIVE_OPCODE 0x04
+#define ACK_OPCODE 0x05
+#define REJECT_OPCODE 0x06
 typedef struct {
     uint8_t opcode;
     uint16_t client_id;
