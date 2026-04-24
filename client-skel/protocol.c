@@ -40,6 +40,11 @@ vpn_header_t fill_payload(vpn_header_t header, char* password, uint64_t seq_num)
     return header;
 }
 
+ssize_t extract_opcode(uint8_t * buffer)
+{
+    vpn_header_t* received_header = (vpn_header_t *)buffer;
+    return received_header->opcode;
+}
 
 vpn_header_t create_pixes_header(uint16_t my_client_id, uint8_t opcode, char* password, uint64_t seq_num)
 {
