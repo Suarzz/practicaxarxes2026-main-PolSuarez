@@ -16,10 +16,10 @@
     </generated>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5b6373f5-c8a8-4d38-968f-6827c345da86" name="Changes" comment="renamed methods from udp.c">
+    <list default="true" id="5b6373f5-c8a8-4d38-968f-6827c345da86" name="Changes" comment="Defined opcode macros to elimiate magic numbers code smell">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client-skel/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/client-skel/main.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client-skel/protocol.h" beforeDir="false" afterPath="$PROJECT_DIR$/client-skel/protocol.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client-skel/protocol.c" beforeDir="false" afterPath="$PROJECT_DIR$/client-skel/protocol.c" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -151,7 +151,7 @@
       <workItem from="1776680377868" duration="1761000" />
       <workItem from="1776855710585" duration="9751000" />
       <workItem from="1776882907666" duration="10215000" />
-      <workItem from="1777026063746" duration="682000" />
+      <workItem from="1777026063746" duration="3721000" />
     </task>
     <task id="LOCAL-00001" summary="initial commit">
       <option name="closed" value="true" />
@@ -201,7 +201,15 @@
       <option name="project" value="LOCAL" />
       <updated>1776874701354</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Defined opcode macros to elimiate magic numbers code smell">
+      <option name="closed" value="true" />
+      <created>1777026955544</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1777026955544</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -213,6 +221,7 @@
     <MESSAGE value="created sendRegister method" />
     <MESSAGE value="unified the create_pixes_header for all kinds of headers" />
     <MESSAGE value="renamed methods from udp.c" />
-    <option name="LAST_COMMIT_MESSAGE" value="renamed methods from udp.c" />
+    <MESSAGE value="Defined opcode macros to elimiate magic numbers code smell" />
+    <option name="LAST_COMMIT_MESSAGE" value="Defined opcode macros to elimiate magic numbers code smell" />
   </component>
 </project>

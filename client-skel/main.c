@@ -197,16 +197,77 @@ void client_run(vpn_config_t *cfg, int tap_fd)
     ssize_t bytes_received = receive_from_server(sock, buffer, MAX_FRAME_SIZE, &server_addr);
 
     //If after the 5s there are no bytes received error
-    if (bytes_received < 0) {
+    if (bytes_received < 0)
+    {
         printf("Error: Registration failed due to timeout.\n");
         exit(EXIT_FAILURE);
     }
 
     vpn_header_t *received_header = (vpn_header_t *)buffer;
-    if (received_header->opcode != ACK_OPCODE) { //0x05 = ACK
+    if (received_header->opcode != ACK_OPCODE)
+    {
         printf("Error: Registration rejected by server.\n");
         exit(EXIT_FAILURE);
     }
+
+    //AUTHENTICATING STATE
+    vpn_header_t auth_header = create_pixes_header(cfg->client_id, AUTH_OPCODE, cfg->password, 0);
+    int auth_attempts_remaining = 3;
+    while (1)
+    {
+        if (auth_attempts_remaining == 0)
+        {
+            printf("Error: No more registration attempts remaining \n");
+            exit(EXIT_FAILURE);
+        }
+        auth_attempts_remaining--;
+
+        bytes_sent = send_to_server(sock, (uint8_t*)&auth_header, &server_addr, VPN_HEADER_SIZE);
+
+        bytes_received = receive_from_server(sock, buffer, MAX_FRAME_SIZE, &server_addr);
+
+        if (bytes_received < 0)
+        {
+            printf("Registration failed due to timeout. %i attempts remaining \n", auth_attempts_remaining);
+            continue;
+        }
+
+        received_header = (vpn_header_t *)buffer;
+        if (received_header->opcode != ACK_OPCODE)
+        {
+            printf("Registration rejected by server.%i attempts remaining \n", auth_attempts_remaining);
+            continue;
+        }
+        //If no timeout or rejection, we enter ESTABLISHED state
+        break;
+    }
+
+    //ESTABLISHED STATE
+    uint64_t seq_num = 0;
+    fd_set read_fds;
+    int max_fd = (sock > tap_fd) ? sock : tap_fd;
+
+    while (1)
+    {
+        // Reset and fill the checklist
+        FD_ZERO(&read_fds);
+        FD_SET(sock, &read_fds);
+        FD_SET(tap_fd, &read_fds);
+
+        // Pause the program until the socket or TAP gets data
+        int activity = select(max_fd + 1, &read_fds, NULL, NULL, NULL);
+
+        // Did the TAP device wake us up?
+        if (FD_ISSET(tap_fd, &read_fds)) {
+
+        }
+
+        // Did the Socket wake us up?
+        if (FD_ISSET(sock, &read_fds)) {
+
+        }
+    }
+
 
 }
 

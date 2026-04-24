@@ -20,13 +20,13 @@ vpn_header_t fill_payload(vpn_header_t header, char* password, uint64_t seq_num)
 {
     switch (header.opcode)
     {
-    case 0x02: //AUTH
+    case AUTH_OPCODE:
         for (int i = 0; i < 8; i++)
         {
             header.payload[i] = password[i];
         }
         break;
-    case 0x03: //TRAFFIC
+    case TRAFFIC_OPCODE:
             seq_num = htonll(seq_num);
             memcpy(header.payload, &seq_num, 8);
         break;
