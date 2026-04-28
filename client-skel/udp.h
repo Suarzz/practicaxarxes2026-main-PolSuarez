@@ -16,7 +16,7 @@
 int create_socket(void);
 
 //Given the server ip and the port we want to assign it, creates the struct for the server address
-struct sockaddr_in create_server_address(int port, char* server_ip);
+struct sockaddr_in create_server_address(int port, const char* server_ip);
 
 //Sends the given packet to the server and returns the number of bytes sent
 ssize_t send_to_server(int sock, uint8_t* packet, const struct sockaddr_in* server_addr, int packet_len);

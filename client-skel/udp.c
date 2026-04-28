@@ -11,7 +11,7 @@ int create_socket(void)
     return sock;
 }
 
-struct sockaddr_in create_server_address(int port, char* server_ip)
+struct sockaddr_in create_server_address(int port, const char* server_ip)
 {
     struct sockaddr_in server_addr;
     server_addr.sin_family = AF_INET;

@@ -201,7 +201,7 @@ void client_run(vpn_config_t *cfg, int tap_fd)
 
     //Wait for the server's reply
     uint8_t buffer[MAX_FRAME_SIZE + VPN_HEADER_SIZE]; //REVISAR
-    ssize_t bytes_received = receive_from_server(sock, buffer, MAX_FRAME_SIZE, &server_addr);
+    ssize_t bytes_received = receive_from_server(sock, buffer, MAX_FRAME_SIZE + VPN_HEADER_SIZE, &server_addr);
 
     //If after the 5s there are no bytes received error
     if (bytes_received <= 0)
@@ -312,6 +312,7 @@ void client_run(vpn_config_t *cfg, int tap_fd)
 
 void handle_shutdown(int signum)
 {
+    (void) signum;
     close(global_sock_fd);
     close(global_tap_fd);
     exit(EXIT_SUCCESS);
