@@ -7,8 +7,9 @@
 #include <linux/if_tun.h>
 #include <sys/select.h>
 #include <sys/time.h>
+
 #include "udp.c"
-#include  "protocol.c"
+#include "protocol.c"
 
 #include "tap.h"
 
@@ -210,7 +211,7 @@ void client_run(vpn_config_t *cfg, int tap_fd)
     }
 
     vpn_header_t *received_header = (vpn_header_t *)buffer;
-    if (received_header->opcode != ACK_OPCODE)
+    if (received_header->opcode != ACK_OPCODE) //extract
     {
         printf("Error: Registration rejected by server.\n");
         exit(EXIT_FAILURE);

@@ -6,7 +6,7 @@
 #define PRACTICAXARXES2026_MAIN_PROTOCOL_H
 #include <string.h>
 #include <netinet/in.h>
-#endif //PRACTICAXARXES2026_MAIN_PROTOCOL_H
+
 
 #define VPN_HEADER_SIZE 11
 #define REGISTER_OPCODE 0x01
@@ -15,10 +15,20 @@
 #define KEEPALIVE_OPCODE 0x04
 #define ACK_OPCODE 0x05
 #define REJECT_OPCODE 0x06
+
 typedef struct {
     uint8_t opcode;
     uint16_t client_id;
     uint8_t payload[8];
 } vpn_header_t;
 
-uint64_t htoll(uint64_t value);
+//Changes 64bit integer from little-endian to big-endian
+uint64_t htonll(uint64_t value);
+
+//Fills the header's payload with the correct content according to pixes protocol, depending on the opcode
+vpn_header_t fill_payload(vpn_header_t header, char* password, uint64_t seq_num);
+
+//Extracts the opcode from a given pixes frame
+uint8_t extract_opcode(uint8_t * buffer);
+
+#endif //PRACTICAXARXES2026_MAIN_PROTOCOL_H
