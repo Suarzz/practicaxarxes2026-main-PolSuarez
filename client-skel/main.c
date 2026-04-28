@@ -8,8 +8,8 @@
 #include <sys/select.h>
 #include <sys/time.h>
 
-#include "udp.c"
-#include "protocol.c"
+#include "udp.h"
+#include "protocol.h"
 
 #include "tap.h"
 

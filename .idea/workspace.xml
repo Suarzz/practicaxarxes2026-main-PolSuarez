@@ -16,12 +16,9 @@
     </generated>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5b6373f5-c8a8-4d38-968f-6827c345da86" name="Changes" comment="Finished an initial functional version of the client will all the states and a shutdown handler">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="5b6373f5-c8a8-4d38-968f-6827c345da86" name="Changes" comment="Added the function signaures to the .h files, so the linker doesn't have duplicated definitions">
       <change beforePath="$PROJECT_DIR$/client-skel/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/client-skel/main.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client-skel/protocol.h" beforeDir="false" afterPath="$PROJECT_DIR$/client-skel/protocol.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client-skel/udp.c" beforeDir="false" afterPath="$PROJECT_DIR$/client-skel/udp.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client-skel/udp.h" beforeDir="false" afterPath="$PROJECT_DIR$/client-skel/udp.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -168,7 +165,7 @@
       <workItem from="1776882907666" duration="10215000" />
       <workItem from="1777026063746" duration="15867000" />
       <workItem from="1777280797806" duration="1012000" />
-      <workItem from="1777384039791" duration="1623000" />
+      <workItem from="1777384039791" duration="1831000" />
     </task>
     <task id="LOCAL-00001" summary="initial commit">
       <option name="closed" value="true" />
@@ -250,7 +247,15 @@
       <option name="project" value="LOCAL" />
       <updated>1777053717579</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Added the function signaures to the .h files, so the linker doesn't have duplicated definitions">
+      <option name="closed" value="true" />
+      <created>1777385718076</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1777385718076</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -266,6 +271,7 @@
     <MESSAGE value="Finished AUTHENTICATING state for the client" />
     <MESSAGE value="Added extract opcode in protocol.c" />
     <MESSAGE value="Finished an initial functional version of the client will all the states and a shutdown handler" />
-    <option name="LAST_COMMIT_MESSAGE" value="Finished an initial functional version of the client will all the states and a shutdown handler" />
+    <MESSAGE value="Added the function signaures to the .h files, so the linker doesn't have duplicated definitions" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added the function signaures to the .h files, so the linker doesn't have duplicated definitions" />
   </component>
 </project>

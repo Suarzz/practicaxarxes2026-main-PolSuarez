@@ -31,4 +31,6 @@ vpn_header_t fill_payload(vpn_header_t header, char* password, uint64_t seq_num)
 //Extracts the opcode from a given pixes frame
 uint8_t extract_opcode(uint8_t * buffer);
 
+//Creates a pixes header with the parameers given
+vpn_header_t create_pixes_header(uint16_t my_client_id, uint8_t opcode, char* password, uint64_t seq_num);
 #endif //PRACTICAXARXES2026_MAIN_PROTOCOL_H
