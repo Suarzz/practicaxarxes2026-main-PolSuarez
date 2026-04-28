@@ -207,6 +207,8 @@ void client_run(vpn_config_t *cfg, int tap_fd)
     if (bytes_received <= 0)
     {
         printf("Error: Registration failed due to timeout.\n");
+        close(global_sock_fd);
+        close(global_tap_fd);
         exit(EXIT_FAILURE);
     }
 
@@ -214,6 +216,8 @@ void client_run(vpn_config_t *cfg, int tap_fd)
     if (received_header->opcode != ACK_OPCODE) //extract
     {
         printf("Error: Registration rejected by server.\n");
+        close(global_sock_fd);
+        close(global_tap_fd);
         exit(EXIT_FAILURE);
     }
 
@@ -225,6 +229,8 @@ void client_run(vpn_config_t *cfg, int tap_fd)
         if (auth_attempts_remaining == 0)
         {
             printf("Error: No more registration attempts remaining \n");
+            close(global_sock_fd);
+            close(global_tap_fd);
             exit(EXIT_FAILURE);
         }
         auth_attempts_remaining--;
@@ -347,7 +353,9 @@ int main(int argc, char *argv[])
     // - Reading frames from the TAP device and sending them to the server
     // - Receiving packets from the server and writing them to the TAP device
     // You should implement this in a separate function (e.g. client_run) 
-    // and keep code clean and tidy. 
+    // and keep code clean and tidy.
+
+    //FIXEJAR EL WARNING DE QUE ELS bytes_sent S'UTILITZEN PERO NO S'ASSIGNEN
     client_run(&cfg, tap_fd);
 
     return 0;
