@@ -16,7 +16,7 @@ uint64_t htonll(uint64_t value) {
     return value; //Already Big-Endian
 }
 
-vpn_header_t fill_payload(vpn_header_t header, char* password, uint64_t seq_num)
+vpn_header_t fill_payload(vpn_header_t header, const char* password, uint64_t seq_num)
 {
     switch (header.opcode)
     {

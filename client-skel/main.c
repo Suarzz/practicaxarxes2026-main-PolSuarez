@@ -197,7 +197,7 @@ void client_run(vpn_config_t *cfg, int tap_fd)
 
     //Build and send RESGISTER
     vpn_header_t reg_header = create_pixes_header(cfg->client_id, REGISTER_OPCODE, "", 0);
-    ssize_t bytes_sent = send_to_server(sock, (uint8_t*)&reg_header, &server_addr, VPN_HEADER_SIZE);
+    send_to_server(sock, (uint8_t*)&reg_header, &server_addr, VPN_HEADER_SIZE);
 
     //Wait for the server's reply
     uint8_t buffer[MAX_FRAME_SIZE + VPN_HEADER_SIZE]; //REVISAR
@@ -206,7 +206,7 @@ void client_run(vpn_config_t *cfg, int tap_fd)
     //If after the 5s there are no bytes received error
     if (bytes_received <= 0)
     {
-        printf("Error: Registration failed due to timeout.\n");
+        printf("Error: Registration failed due to timeout..\n");
         close(global_sock_fd);
         close(global_tap_fd);
         exit(EXIT_FAILURE);
@@ -235,20 +235,20 @@ void client_run(vpn_config_t *cfg, int tap_fd)
         }
         auth_attempts_remaining--;
 
-        bytes_sent = send_to_server(sock, (uint8_t*)&auth_header, &server_addr, VPN_HEADER_SIZE);
+        send_to_server(sock, (uint8_t*)&auth_header, &server_addr, VPN_HEADER_SIZE);
 
         bytes_received = receive_from_server(sock, buffer, MAX_FRAME_SIZE, &server_addr);
 
         if (bytes_received <= 0)
         {
-            printf("Registration failed due to timeout. %i attempts remaining \n", auth_attempts_remaining);
+            printf("Authentication failed due to timeout. %i attempts remaining \n", auth_attempts_remaining);
             continue;
         }
 
         received_header = (vpn_header_t *)buffer;
         if (received_header->opcode != ACK_OPCODE)
         {
-            printf("Registration rejected by server.%i attempts remaining \n", auth_attempts_remaining);
+            printf("Authentication rejected by server. %i attempts remaining \n", auth_attempts_remaining);
             continue;
         }
         //If no timeout or rejection, we enter ESTABLISHED state
@@ -286,7 +286,7 @@ void client_run(vpn_config_t *cfg, int tap_fd)
                 seq_num++;
                 memcpy(packet_buffer, &traffic_header, VPN_HEADER_SIZE);
                 memcpy(packet_buffer + VPN_HEADER_SIZE, eth_frame, frame_len);
-                bytes_sent = send_to_server(sock, packet_buffer, &server_addr, VPN_HEADER_SIZE + frame_len);
+                send_to_server(sock, packet_buffer, &server_addr, VPN_HEADER_SIZE + frame_len);
 
             }
         }
@@ -309,7 +309,7 @@ void client_run(vpn_config_t *cfg, int tap_fd)
         if (activity == 0)
         {
             vpn_header_t keepalive_header = create_pixes_header(cfg->client_id, KEEPALIVE_OPCODE, "", 0);
-            bytes_sent = send_to_server(sock, (uint8_t *)&keepalive_header, &server_addr, VPN_HEADER_SIZE);
+            send_to_server(sock, (uint8_t *)&keepalive_header, &server_addr, VPN_HEADER_SIZE);
         }
     }
 

@@ -26,7 +26,7 @@ typedef struct {
 uint64_t htonll(uint64_t value);
 
 //Fills the header's payload with the correct content according to pixes protocol, depending on the opcode
-vpn_header_t fill_payload(vpn_header_t header, char* password, uint64_t seq_num);
+vpn_header_t fill_payload(vpn_header_t header, const char* password, uint64_t seq_num);
 
 //Extracts the opcode from a given pixes frame
 uint8_t extract_opcode(uint8_t * buffer);
