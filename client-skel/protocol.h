@@ -16,10 +16,10 @@
 #define ACK_OPCODE 0x05
 #define REJECT_OPCODE 0x06
 
-typedef struct {
-    uint8_t opcode;
-    uint16_t client_id;
-    uint8_t payload[8];
+typedef struct __attribute__((packed)) {
+    uint8_t  opcode;      // 1 byte
+    uint16_t client_id;   // 2 bytes
+    uint8_t  payload[8];  // 8 bytes
 } vpn_header_t;
 
 //Changes 64bit integer from little-endian to big-endian

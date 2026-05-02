@@ -16,10 +16,9 @@
     </generated>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5b6373f5-c8a8-4d38-968f-6827c345da86" name="Changes" comment="added socked and tap closing for the error scenarios">
+    <list default="true" id="5b6373f5-c8a8-4d38-968f-6827c345da86" name="Changes" comment="f">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client-skel/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/client-skel/main.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client-skel/protocol.c" beforeDir="false" afterPath="$PROJECT_DIR$/client-skel/protocol.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client-skel/protocol.h" beforeDir="false" afterPath="$PROJECT_DIR$/client-skel/protocol.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -97,6 +96,7 @@
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
     &quot;Makefile Target.all.executor&quot;: &quot;Run&quot;,
+    &quot;Makefile Target.clean.executor&quot;: &quot;Run&quot;,
     &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.RadMigrateCodeStyle&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
@@ -112,7 +112,7 @@
     &quot;last_opened_file_path&quot;: &quot;/home/pol/Downloads/practicaxarxes2026-main&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
     &quot;org.rust.first.attach.projects&quot;: &quot;true&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;vcs.Git&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
@@ -143,14 +143,22 @@
       </makefile>
       <method v="2" />
     </configuration>
+    <configuration name="clean" type="MAKEFILE_TARGET_RUN_CONFIGURATION" factoryName="Makefile" temporary="true">
+      <makefile filename="$PROJECT_DIR$/client-skel/Makefile" target="clean" workingDirectory="" arguments="">
+        <envs />
+      </makefile>
+      <method v="2" />
+    </configuration>
     <list>
-      <item itemvalue="Makefile Target.all" />
       <item itemvalue="Native Application.all" />
       <item itemvalue="Native Application.vpnclient" />
+      <item itemvalue="Makefile Target.all" />
+      <item itemvalue="Makefile Target.clean" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Makefile Target.all" />
+        <item itemvalue="Makefile Target.clean" />
       </list>
     </recent_temporary>
   </component>
@@ -169,7 +177,9 @@
       <workItem from="1777280797806" duration="1012000" />
       <workItem from="1777384039791" duration="1831000" />
       <workItem from="1777415106800" duration="1758000" />
-      <workItem from="1777636705343" duration="2941000" />
+      <workItem from="1777636705343" duration="8338000" />
+      <workItem from="1777722241405" duration="756000" />
+      <workItem from="1777744352802" duration="444000" />
     </task>
     <task id="LOCAL-00001" summary="initial commit">
       <option name="closed" value="true" />
@@ -267,7 +277,15 @@
       <option name="project" value="LOCAL" />
       <updated>1777415674925</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="f">
+      <option name="closed" value="true" />
+      <created>1777646207816</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1777646207816</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -285,6 +303,7 @@
     <MESSAGE value="Finished an initial functional version of the client will all the states and a shutdown handler" />
     <MESSAGE value="Added the function signaures to the .h files, so the linker doesn't have duplicated definitions" />
     <MESSAGE value="added socked and tap closing for the error scenarios" />
-    <option name="LAST_COMMIT_MESSAGE" value="added socked and tap closing for the error scenarios" />
+    <MESSAGE value="f" />
+    <option name="LAST_COMMIT_MESSAGE" value="f" />
   </component>
 </project>
