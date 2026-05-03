@@ -17,9 +17,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5b6373f5-c8a8-4d38-968f-6827c345da86" name="Changes" comment="Fixed keepalive system">
-      <change afterPath="$PROJECT_DIR$/server-skel/src/vpnswitch/vpn_server.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server-skel/src/vpnswitch/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/server-skel/src/vpnswitch/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server-skel/src/vpnswitch/vpn_server.py" beforeDir="false" afterPath="$PROJECT_DIR$/server-skel/src/vpnswitch/vpn_server.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -215,6 +214,7 @@
       <workItem from="1777744352802" duration="444000" />
       <workItem from="1777744856534" duration="4327000" />
       <workItem from="1777764567848" duration="2589000" />
+      <workItem from="1777820259547" duration="11179000" />
     </task>
     <task id="LOCAL-00001" summary="initial commit">
       <option name="closed" value="true" />
