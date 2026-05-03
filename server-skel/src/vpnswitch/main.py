@@ -19,6 +19,8 @@ ic.disable()
 import typer
 app = typer.Typer()
 
+from vpn_server import VpnServer
+
 
 class UnknownMacPolicy(str, Enum):
     flood = "flood"
@@ -33,9 +35,6 @@ class ServerConfig:
     timeout: int
     credentials: Optional[Path]
     verbose: bool
-
-
-
 
 
 @app.command()
