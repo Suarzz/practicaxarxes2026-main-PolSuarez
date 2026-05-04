@@ -95,11 +95,11 @@ class VpnServer:
                         for iter_client_id, session in self.clients.items():
                             if iter_client_id != client_id and session.state == SessionState.authenticated:
                                 self.send_traffic(data, iter_client_id)
-                                #Update last_seen
-                                self.clients[client_id].last_seen = time.time()
+                #Update last_seen
+                self.clients[client_id].last_seen = time.time()
             elif opcode == 4:
                 #Update last_seen
-                if client_id in self.clients and self.clients[client_id].state != SessionState.authenticated:
+                if client_id in self.clients and self.clients[client_id].state == SessionState.authenticated:
                     self.clients[client_id].last_seen = time.time()
 
 
@@ -147,6 +147,6 @@ class VpnServer:
                 session = self.clients[client_id]
 
                 # If the difference between now and their last message is too big...
-                if current_time - session.last_seen > timeout_seconds:
+                if session.state == SessionState.authenticated and current_time - session.last_seen > timeout_seconds:
                     logger.info(f"Client {client_id} timed out. Deleting session.")
                     del self.clients[client_id]
