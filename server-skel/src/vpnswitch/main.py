@@ -19,7 +19,7 @@ ic.disable()
 import typer
 app = typer.Typer()
 
-from vpn_server import VpnServer
+from .vpn_server import VpnServer
 
 
 class UnknownMacPolicy(str, Enum):
@@ -74,13 +74,9 @@ def main(
     )
 
     ic(config)
-    # TODO: Implementar el servidor. Creant una instància de una classe (VpnServer, per exemple) 
-    # que encapsuli tota la lògica del servidor i cridar al seu mètode run() (exemple). 
-    # Això ajudarà a mantenir el codi net i organitzat.
-    #       
-    # server = VpnServer(config)
-    # server.run()
-    pass
+
+    server = VpnServer(config)
+    server.run()
 
 
 def cli_main() -> None:

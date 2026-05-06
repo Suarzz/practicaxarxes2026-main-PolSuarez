@@ -17,9 +17,10 @@
     </generated>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5b6373f5-c8a8-4d38-968f-6827c345da86" name="Changes" comment="fixed the updates for the last seen so now we only track the authenticated sessions">
+    <list default="true" id="5b6373f5-c8a8-4d38-968f-6827c345da86" name="Changes" comment="fixed keepalives from client so we update last seen when the client sends traffic">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client-skel/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/client-skel/main.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server-skel/src/vpnswitch/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/server-skel/src/vpnswitch/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server-skel/src/vpnswitch/vpn_server.py" beforeDir="false" afterPath="$PROJECT_DIR$/server-skel/src/vpnswitch/vpn_server.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -123,7 +124,7 @@
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
-  <component name="RunManager" selected="Python.main">
+  <component name="RunManager" selected="Makefile Target.all">
     <configuration name="all" type="CLionNativeAppRunConfigurationType" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="practicaxarxes2026-main" TARGET_NAME="all" CONFIG_NAME="all" version="1">
       <method v="2">
         <option name="CLION.COMPOUND.BUILD" enabled="true" />
@@ -181,17 +182,17 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Makefile Target.all" />
-      <item itemvalue="Makefile Target.clean" />
       <item itemvalue="Native Application.all" />
       <item itemvalue="Native Application.vpnclient" />
+      <item itemvalue="Makefile Target.all" />
+      <item itemvalue="Makefile Target.clean" />
       <item itemvalue="Python.main" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.main" />
         <item itemvalue="Makefile Target.all" />
         <item itemvalue="Makefile Target.clean" />
+        <item itemvalue="Python.main" />
       </list>
     </recent_temporary>
   </component>
@@ -218,7 +219,9 @@
       <workItem from="1777820259547" duration="11476000" />
       <workItem from="1777890714624" duration="1358000" />
       <workItem from="1777907107083" duration="1571000" />
-      <workItem from="1778062511148" duration="353000" />
+      <workItem from="1778062511148" duration="5520000" />
+      <workItem from="1778083934811" duration="1743000" />
+      <workItem from="1778105453987" duration="828000" />
     </task>
     <task id="LOCAL-00001" summary="initial commit">
       <option name="closed" value="true" />
@@ -348,7 +351,15 @@
       <option name="project" value="LOCAL" />
       <updated>1777892030652</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="fixed keepalives from client so we update last seen when the client sends traffic">
+      <option name="closed" value="true" />
+      <created>1778063097458</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1778063097458</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -370,7 +381,8 @@
     <MESSAGE value="Fixed keepalive system" />
     <MESSAGE value="Implemented the server recieving frames" />
     <MESSAGE value="fixed the updates for the last seen so now we only track the authenticated sessions" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixed the updates for the last seen so now we only track the authenticated sessions" />
+    <MESSAGE value="fixed keepalives from client so we update last seen when the client sends traffic" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixed keepalives from client so we update last seen when the client sends traffic" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
