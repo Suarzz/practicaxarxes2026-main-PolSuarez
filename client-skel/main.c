@@ -269,12 +269,12 @@ void client_run(vpn_config_t *cfg, int tap_fd)
     fd_set read_fds;
     int max_fd = (sock > tap_fd) ? sock : tap_fd;
 
-    time_t last_keepalive = time(NULL); // Track the exact time we start
+    time_t last_seen = time(NULL); // Track the exact time we start
 
     while (1)
     {
         time_t now = time(NULL);
-        int time_left = KEEPALIVE_INTERVAL_SEC - (now - last_keepalive);
+        int time_left = KEEPALIVE_INTERVAL_SEC - (now - last_seen);
 
         // If 10 seconds have passed, send the keepalive and reset the clock
         if (time_left <= 0)
@@ -283,7 +283,7 @@ void client_run(vpn_config_t *cfg, int tap_fd)
             vpn_header_t keepalive_header = create_pixes_header(cfg->client_id, KEEPALIVE_OPCODE, "", 0);
             send_to_server(sock, (uint8_t *)&keepalive_header, &server_addr, VPN_HEADER_SIZE);
 
-            last_keepalive = time(NULL);
+            last_seen = time(NULL);
             time_left = KEEPALIVE_INTERVAL_SEC;
         }
 
@@ -318,6 +318,8 @@ void client_run(vpn_config_t *cfg, int tap_fd)
                 memcpy(packet_buffer, &traffic_header, VPN_HEADER_SIZE);
                 memcpy(packet_buffer + VPN_HEADER_SIZE, eth_frame, frame_len);
                 send_to_server(sock, packet_buffer, &server_addr, VPN_HEADER_SIZE + frame_len);
+
+                last_seen = time(NULL);
             }
         }
 
@@ -327,7 +329,7 @@ void client_run(vpn_config_t *cfg, int tap_fd)
 
             if (bytes_received > 0)
             {
-                printf("Server -> TAP: Received packet opcode 0x%02x\n", buffer[0]);
+                printf("Server -> TAP: Received packet, opcode 0x%02x\n", buffer[0]);
                 if (extract_opcode(buffer) == TRAFFIC_OPCODE && bytes_received > VPN_HEADER_SIZE)
                 {
                     tap_write(tap_fd, buffer + VPN_HEADER_SIZE, bytes_received - VPN_HEADER_SIZE);
@@ -370,16 +372,12 @@ int main(int argc, char *argv[])
     }
     global_tap_fd = tap_fd;
 
-
-
     // TODO: Start client run loop, which should handle everything after this point, including:
     // - Sending keepalive packets to the server every KEEPALIVE_INTERVAL_SEC seconds
     // - Reading frames from the TAP device and sending them to the server
     // - Receiving packets from the server and writing them to the TAP device
     // You should implement this in a separate function (e.g. client_run) 
     // and keep code clean and tidy.
-
-    //FIXEJAR EL WARNING DE QUE ELS bytes_sent S'UTILITZEN PERO NO S'ASSIGNEN
     client_run(&cfg, tap_fd);
 
     return 0;

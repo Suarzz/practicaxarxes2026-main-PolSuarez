@@ -5,6 +5,7 @@
   </component>
   <component name="BackendCodeEditorMiscSettings">
     <option name="/Default/Housekeeping/FeatureSuggestion/FeatureSuggestionManager/DisabledSuggesters/=SwitchToGoToActionSuggester/@EntryIndexedValue" value="true" type="bool" />
+    <option name="/Default/Housekeeping/LiveTemplatesHousekeeping/HotspotSessionHintIsShown/@EntryValue" value="true" type="bool" />
   </component>
   <component name="CMakeProjectFlavorService">
     <option name="flavorId" value="CMakePlainProjectFlavor" />
@@ -16,8 +17,9 @@
     </generated>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5b6373f5-c8a8-4d38-968f-6827c345da86" name="Changes" comment="Implemented the server recieving frames">
+    <list default="true" id="5b6373f5-c8a8-4d38-968f-6827c345da86" name="Changes" comment="fixed the updates for the last seen so now we only track the authenticated sessions">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client-skel/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/client-skel/main.c" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -179,10 +181,10 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Native Application.all" />
-      <item itemvalue="Native Application.vpnclient" />
       <item itemvalue="Makefile Target.all" />
       <item itemvalue="Makefile Target.clean" />
+      <item itemvalue="Native Application.all" />
+      <item itemvalue="Native Application.vpnclient" />
       <item itemvalue="Python.main" />
     </list>
     <recent_temporary>
@@ -214,7 +216,9 @@
       <workItem from="1777744856534" duration="4327000" />
       <workItem from="1777764567848" duration="2589000" />
       <workItem from="1777820259547" duration="11476000" />
-      <workItem from="1777890714624" duration="514000" />
+      <workItem from="1777890714624" duration="1358000" />
+      <workItem from="1777907107083" duration="1571000" />
+      <workItem from="1778062511148" duration="353000" />
     </task>
     <task id="LOCAL-00001" summary="initial commit">
       <option name="closed" value="true" />
@@ -336,7 +340,15 @@
       <option name="project" value="LOCAL" />
       <updated>1777848686799</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="fixed the updates for the last seen so now we only track the authenticated sessions">
+      <option name="closed" value="true" />
+      <created>1777892030651</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1777892030652</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -357,7 +369,8 @@
     <MESSAGE value="f" />
     <MESSAGE value="Fixed keepalive system" />
     <MESSAGE value="Implemented the server recieving frames" />
-    <option name="LAST_COMMIT_MESSAGE" value="Implemented the server recieving frames" />
+    <MESSAGE value="fixed the updates for the last seen so now we only track the authenticated sessions" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixed the updates for the last seen so now we only track the authenticated sessions" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
