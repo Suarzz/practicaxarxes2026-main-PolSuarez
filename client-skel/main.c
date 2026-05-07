@@ -13,6 +13,7 @@
 #include "protocol.h"
 #include "args.h"
 #include "tap.h"
+#include "error.h"
 
 
 #define KEEPALIVE_INTERVAL_SEC 10
@@ -45,27 +46,21 @@ void client_run(vpn_config_t *cfg, int tap_fd)
     struct sockaddr_in sender_addr;
     ssize_t bytes_received = receive_from_server(sock, buffer, MAX_FRAME_SIZE + VPN_HEADER_SIZE, &sender_addr);
 
-    //If after the 5s there are no bytes received error
+    //If after the 5s there are no bytes received, error
     if (bytes_received <= 0)
     {
-        printf("Error: Registration failed due to timeout..\n");
-        close(global_sock_fd);
-        close(global_tap_fd);
-        exit(EXIT_FAILURE);
+        throw_error("Error: Registration failed due to timeout.\n", global_sock_fd, global_tap_fd);
     }
 
     vpn_header_t *received_header = (vpn_header_t *)buffer;
+
     if (received_header->opcode != ACK_OPCODE) //extract
     {
-        printf("Error: Registration rejected by server.\n");
-        close(global_sock_fd);
-        close(global_tap_fd);
-        exit(EXIT_FAILURE);
+        throw_error("Error: Registration rejected by server.\n", global_sock_fd, global_tap_fd);
     } else
     {
         printf("REGISTRATION COMPLETED \n");
     }
-
 
     //AUTHENTICATING STATE
     vpn_header_t auth_header = create_pixes_header(cfg->client_id, AUTH_OPCODE, cfg->password, 0);
@@ -74,15 +69,10 @@ void client_run(vpn_config_t *cfg, int tap_fd)
     {
         if (auth_attempts_remaining == 0)
         {
-            printf("Error: No more registration attempts remaining \n");
-            close(global_sock_fd);
-            close(global_tap_fd);
-            exit(EXIT_FAILURE);
+            throw_error("Error: No more registration attempts remaining \n", global_sock_fd, global_tap_fd);
         }
         auth_attempts_remaining--;
-        printf("Sending packet of size: %zu bytes\n", sizeof(auth_header));
-        for(int i=0; i<VPN_HEADER_SIZE; i++) printf("%02x ", ((uint8_t*)&auth_header)[i]);
-        printf("\n");
+
         send_to_server(sock, (uint8_t*)&auth_header, &server_addr, VPN_HEADER_SIZE);
 
         bytes_received = receive_from_server(sock, buffer, MAX_FRAME_SIZE, &sender_addr);
@@ -192,32 +182,23 @@ void handle_shutdown(int signum)
 
 int main(int argc, char *argv[])
 {
-    //kill signal handler
-    signal(SIGINT, handle_shutdown);
+    signal(SIGINT, handle_shutdown); //kill signal handler
     signal(SIGTERM, handle_shutdown);
 
     vpn_config_t cfg;
-
     int ret = parse_args(argc, argv, &cfg);
     if (ret <= 0) {
         /* ret == 0 -> parsing error exit -1, ret < 0 -> help requested exit 0*/
         return (ret < 0) ? 0 : -1;
     }
 
-    /* Open TAP device, you should handle this out of main*/
+    // Open TAP device
     int tap_fd = tap_open(cfg.tap_if);
     if (tap_fd < 0) {
         fprintf(stderr, "Error: could not open TAP device %s\n", cfg.tap_if);
         return 1;
     }
     global_tap_fd = tap_fd;
-
-    // TODO: Start client run loop, which should handle everything after this point, including:
-    // - Sending keepalive packets to the server every KEEPALIVE_INTERVAL_SEC seconds
-    // - Reading frames from the TAP device and sending them to the server
-    // - Receiving packets from the server and writing them to the TAP device
-    // You should implement this in a separate function (e.g. client_run) 
-    // and keep code clean and tidy.
     client_run(&cfg, tap_fd);
 
     return 0;
