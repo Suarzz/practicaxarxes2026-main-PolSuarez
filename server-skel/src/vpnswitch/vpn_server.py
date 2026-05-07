@@ -143,19 +143,10 @@ class VpnServer:
         self.sock.sendto(response_packet, (client_ip, client_port))
 
     def send_traffic(self, frame, destination_client_id):
-        # 1. Make a mutable copy of the frame
-        mutable_frame = bytearray(frame)
-
-        # 2. Overwrite index 1 with the High Byte of the destination ID
-        mutable_frame[1] = (destination_client_id >> 8) & 0xFF
-
-        # 3. Overwrite index 2 with the Low Byte of the destination ID
-        mutable_frame[2] = destination_client_id & 0xFF
-
         #Forward to destination client
-        self.sock.sendto(mutable_frame, (self.clients[destination_client_id].ip, self.clients[destination_client_id].port))
+        self.sock.sendto(frame, (self.clients[destination_client_id].ip, self.clients[destination_client_id].port))
         self.clients[destination_client_id].pktsOut += 1
-        self.clients[destination_client_id].bytesOut += len(mutable_frame)
+        self.clients[destination_client_id].bytesOut += len(frame)
 
     def broadcast_packet(self, client_id, data):
         for iter_client_id, session in self.clients.items():
