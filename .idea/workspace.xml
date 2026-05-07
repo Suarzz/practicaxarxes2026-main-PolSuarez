@@ -17,12 +17,13 @@
     </generated>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5b6373f5-c8a8-4d38-968f-6827c345da86" name="Changes" comment="refactored args parsing into another file">
-      <change afterPath="$PROJECT_DIR$/client-skel/error.c" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client-skel/error.h" afterDir="false" />
+    <list default="true" id="5b6373f5-c8a8-4d38-968f-6827c345da86" name="Changes" comment="refactored error handling by creating a helper method in error.c">
+      <change afterPath="$PROJECT_DIR$/server-skel/src/vpnswitch/credentials.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server-skel/src/vpnswitch/protocol.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server-skel/src/vpnswitch/session.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client-skel/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/client-skel/Makefile" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client-skel/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/client-skel/main.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server-skel/src/vpnswitch/vpn_server.py" beforeDir="false" afterPath="$PROJECT_DIR$/server-skel/src/vpnswitch/vpn_server.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -240,7 +241,7 @@
       <workItem from="1778105453987" duration="1684000" />
       <workItem from="1778151532841" duration="4732000" />
       <workItem from="1778156371404" duration="4368000" />
-      <workItem from="1778171835266" duration="2162000" />
+      <workItem from="1778171835266" duration="10746000" />
     </task>
     <task id="LOCAL-00001" summary="initial commit">
       <option name="closed" value="true" />
@@ -402,7 +403,15 @@
       <option name="project" value="LOCAL" />
       <updated>1778156957758</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="refactored error handling by creating a helper method in error.c">
+      <option name="closed" value="true" />
+      <created>1778174215673</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1778174215673</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -428,7 +437,8 @@
     <MESSAGE value="ff" />
     <MESSAGE value="fixed server" />
     <MESSAGE value="refactored args parsing into another file" />
-    <option name="LAST_COMMIT_MESSAGE" value="refactored args parsing into another file" />
+    <MESSAGE value="refactored error handling by creating a helper method in error.c" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactored error handling by creating a helper method in error.c" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

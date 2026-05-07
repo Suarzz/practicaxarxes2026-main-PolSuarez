@@ -43,7 +43,7 @@ void client_run(vpn_config_t *cfg, int tap_fd)
 
     //Wait for the server's reply
     static uint8_t buffer[MAX_FRAME_SIZE + VPN_HEADER_SIZE]; //REVISAR
-    struct sockaddr_in sender_addr;
+    struct sockaddr_in sender_addr; //use a different struct so the original doesn't get overwritten??
     ssize_t bytes_received = receive_from_server(sock, buffer, MAX_FRAME_SIZE + VPN_HEADER_SIZE, &sender_addr);
 
     //If after the 5s there are no bytes received, error
