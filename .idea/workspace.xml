@@ -17,10 +17,7 @@
     </generated>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5b6373f5-c8a8-4d38-968f-6827c345da86" name="Changes" comment="refactored error handling by creating a helper method in error.c">
-      <change afterPath="$PROJECT_DIR$/server-skel/src/vpnswitch/credentials.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server-skel/src/vpnswitch/protocol.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server-skel/src/vpnswitch/session.py" afterDir="false" />
+    <list default="true" id="5b6373f5-c8a8-4d38-968f-6827c345da86" name="Changes" comment="refactored server">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client-skel/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/client-skel/main.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server-skel/src/vpnswitch/vpn_server.py" beforeDir="false" afterPath="$PROJECT_DIR$/server-skel/src/vpnswitch/vpn_server.py" afterDir="false" />
@@ -129,11 +126,6 @@
   }
 }</component>
   <component name="RunManager" selected="Makefile Target.all">
-    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true">
-      <method v="2">
-        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="all" type="CLionNativeAppRunConfigurationType" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="practicaxarxes2026-main" TARGET_NAME="all" CONFIG_NAME="all" version="1">
       <method v="2">
         <option name="CLION.COMPOUND.BUILD" enabled="true" />
@@ -197,11 +189,11 @@
       <method v="2" />
     </configuration>
     <list>
+      <item itemvalue="Native Application.all" />
+      <item itemvalue="Native Application.vpnclient" />
       <item itemvalue="Makefile Target.%.o" />
       <item itemvalue="Makefile Target.all" />
       <item itemvalue="Makefile Target.clean" />
-      <item itemvalue="Native Application.all" />
-      <item itemvalue="Native Application.vpnclient" />
       <item itemvalue="Python.main" />
     </list>
     <recent_temporary>
@@ -241,7 +233,9 @@
       <workItem from="1778105453987" duration="1684000" />
       <workItem from="1778151532841" duration="4732000" />
       <workItem from="1778156371404" duration="4368000" />
-      <workItem from="1778171835266" duration="10746000" />
+      <workItem from="1778171835266" duration="11566000" />
+      <workItem from="1778193164411" duration="905000" />
+      <workItem from="1778236274958" duration="5494000" />
     </task>
     <task id="LOCAL-00001" summary="initial commit">
       <option name="closed" value="true" />
@@ -411,7 +405,15 @@
       <option name="project" value="LOCAL" />
       <updated>1778174215673</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="refactored server">
+      <option name="closed" value="true" />
+      <created>1778187960521</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1778187960521</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -438,7 +440,8 @@
     <MESSAGE value="fixed server" />
     <MESSAGE value="refactored args parsing into another file" />
     <MESSAGE value="refactored error handling by creating a helper method in error.c" />
-    <option name="LAST_COMMIT_MESSAGE" value="refactored error handling by creating a helper method in error.c" />
+    <MESSAGE value="refactored server" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactored server" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

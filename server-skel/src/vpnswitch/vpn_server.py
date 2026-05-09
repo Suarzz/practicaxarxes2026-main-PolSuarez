@@ -92,8 +92,13 @@ class VpnServer:
         if client_id not in self.clients or self.clients[client_id].state != SessionState.authenticated:
             return
 
+        #Update last_seen and stats
+        self.clients[client_id].last_seen = time.time()
+        self.clients[client_id].pktsIn += 1
+        self.clients[client_id].bytesIn += len(data)
+
         if len(data) < 23:
-            return # Frame is too short to contain MAC addresses
+            return #Frame is too short to contain MAC addresses
 
         #MAC addresses
         destination_mac_addrr = data[11:17]
@@ -116,10 +121,6 @@ class VpnServer:
                 elif self.config.unknown_mac == "flood":
                     self.broadcast_packet(client_id, data)
 
-        #Update last_seen
-        self.clients[client_id].last_seen = time.time()
-        self.clients[client_id].pktsIn += 1
-        self.clients[client_id].bytesIn += len(data)
 
     def _handle_keepalive(self, client_id):
         #Update last_seen
@@ -160,7 +161,7 @@ class VpnServer:
         timeout_seconds = self.config.timeout
 
         while True:
-            time.sleep(3) # The thread sleeps, then wakes up every 3 seconds
+            time.sleep(3)
             current_time = time.time()
 
             for client_id in list(self.clients.keys()):

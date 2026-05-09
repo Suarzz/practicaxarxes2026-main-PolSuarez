@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <ctype.h>
 #include <unistd.h>
 #include <signal.h>
 #include <linux/if_tun.h>
@@ -23,59 +22,46 @@
 int global_tap_fd;
 int global_sock_fd;
 
-
-void client_run(vpn_config_t *cfg, int tap_fd)
+void register_(const vpn_config_t *cfg, int sock, int tap, struct sockaddr_in server_addr, uint8_t * buffer)
 {
-    int sock = create_socket();
-    global_sock_fd = sock;
-
-    struct sockaddr_in server_addr = create_server_address(cfg->port, cfg->server_ip);
-
-    //5 second socket timeout
-    struct timeval tv;
-    tv.tv_sec = 5;
-    tv.tv_usec = 0;
-    setsockopt(sock, SOL_SOCKET, SO_RCVTIMEO, &tv, sizeof(tv)); //Set timer options
-
     //Build and send RESGISTER
     vpn_header_t reg_header = create_pixes_header(cfg->client_id, REGISTER_OPCODE, "", 0);
     send_to_server(sock, (uint8_t*)&reg_header, &server_addr, VPN_HEADER_SIZE);
 
-    //Wait for the server's reply
-    static uint8_t buffer[MAX_FRAME_SIZE + VPN_HEADER_SIZE]; //REVISAR
     struct sockaddr_in sender_addr; //use a different struct so the original doesn't get overwritten??
     ssize_t bytes_received = receive_from_server(sock, buffer, MAX_FRAME_SIZE + VPN_HEADER_SIZE, &sender_addr);
 
     //If after the 5s there are no bytes received, error
     if (bytes_received <= 0)
     {
-        throw_error("Error: Registration failed due to timeout.\n", global_sock_fd, global_tap_fd);
+        throw_error("Error: Registration failed due to timeout.\n", sock, tap);
     }
 
-    vpn_header_t *received_header = (vpn_header_t *)buffer;
-
-    if (received_header->opcode != ACK_OPCODE) //extract
+    if (extract_opcode(buffer) != ACK_OPCODE)
     {
-        throw_error("Error: Registration rejected by server.\n", global_sock_fd, global_tap_fd);
+        throw_error("Error: Registration rejected by server.\n", sock, tap);
     } else
     {
         printf("REGISTRATION COMPLETED \n");
     }
+}
 
-    //AUTHENTICATING STATE
+void authenticate_(vpn_config_t *cfg, int sock, int tap, struct sockaddr_in server_addr, uint8_t * buffer)
+{
     vpn_header_t auth_header = create_pixes_header(cfg->client_id, AUTH_OPCODE, cfg->password, 0);
     int auth_attempts_remaining = 3;
     while (1)
     {
         if (auth_attempts_remaining == 0)
         {
-            throw_error("Error: No more registration attempts remaining \n", global_sock_fd, global_tap_fd);
+            throw_error("Error: No more registration attempts remaining \n", sock, tap);
         }
         auth_attempts_remaining--;
 
         send_to_server(sock, (uint8_t*)&auth_header, &server_addr, VPN_HEADER_SIZE);
 
-        bytes_received = receive_from_server(sock, buffer, MAX_FRAME_SIZE, &sender_addr);
+        struct sockaddr_in sender_addr; //use a different struct so the original doesn't get overwritten??
+        ssize_t bytes_received = receive_from_server(sock, buffer, MAX_FRAME_SIZE + VPN_HEADER_SIZE, &sender_addr);
 
         if (bytes_received <= 0)
         {
@@ -83,8 +69,7 @@ void client_run(vpn_config_t *cfg, int tap_fd)
             continue;
         }
 
-        received_header = (vpn_header_t *)buffer;
-        if (received_header->opcode != ACK_OPCODE)
+        if (extract_opcode(buffer) != ACK_OPCODE)
         {
             printf("Authentication rejected by server. %i attempts remaining \n", auth_attempts_remaining);
             continue;
@@ -93,11 +78,15 @@ void client_run(vpn_config_t *cfg, int tap_fd)
         printf("AUTHENTICATION COMPLETED \n");
         break;
     }
+}
 
- //ESTABLISHED STATE
+void established_(const vpn_config_t *cfg, int sock, int tap_fd, struct sockaddr_in server_addr, uint8_t * buffer)
+{
+    //ESTABLISHED STATE
     uint64_t seq_num = 0;
     fd_set read_fds;
     int max_fd = (sock > tap_fd) ? sock : tap_fd;
+    struct sockaddr_in sender_addr; //use a different struct so the original doesn't get overwritten??
 
     time_t last_seen = time(NULL); // Track the exact time we start
 
@@ -118,7 +107,7 @@ void client_run(vpn_config_t *cfg, int tap_fd)
         }
 
         struct timeval select_timeout;
-        select_timeout.tv_sec = time_left; // Tell select to only wait for the REMAINING time
+        select_timeout.tv_sec = time_left; //Tell select to only wait for the REMAINING time
         select_timeout.tv_usec = 0;
 
         // Reset and fill the checklist
@@ -126,7 +115,7 @@ void client_run(vpn_config_t *cfg, int tap_fd)
         FD_SET(sock, &read_fds);
         FD_SET(tap_fd, &read_fds);
 
-        // Pause the program until the socket or TAP gets data, or time_left runs out
+        //Pause the program until the socket or TAP gets data, or time_left runs out
         int activity = select(max_fd + 1, &read_fds, NULL, NULL, &select_timeout);
 
         if (activity < 0) {
@@ -134,7 +123,7 @@ void client_run(vpn_config_t *cfg, int tap_fd)
             continue;
         }
 
-        // Did the TAP device wake us up?
+        //Tap wakes up
         if (FD_ISSET(tap_fd, &read_fds)) {
             uint8_t eth_frame[MAX_FRAME_SIZE];
             ssize_t frame_len = tap_read(tap_fd, eth_frame, sizeof(eth_frame));
@@ -153,9 +142,9 @@ void client_run(vpn_config_t *cfg, int tap_fd)
             }
         }
 
-        // Did the Socket wake us up?
+        //Socket wakes up
         if (FD_ISSET(sock, &read_fds)) {
-            bytes_received = receive_from_server(sock, buffer, sizeof(buffer), &sender_addr);
+            ssize_t bytes_received = receive_from_server(sock, buffer, MAX_FRAME_SIZE + VPN_HEADER_SIZE, &sender_addr);
 
             if (bytes_received > 0)
             {
@@ -166,9 +155,29 @@ void client_run(vpn_config_t *cfg, int tap_fd)
                 }
             }
         }
-
     }
+}
 
+void client_run(vpn_config_t *cfg, int tap_fd)
+{
+    int sock = create_socket();
+    global_sock_fd = sock;
+
+    struct sockaddr_in server_addr = create_server_address(cfg->port, cfg->server_ip);
+
+    //5 second socket timeout
+    struct timeval tv;
+    tv.tv_sec = 5;
+    tv.tv_usec = 0;
+    setsockopt(sock, SOL_SOCKET, SO_RCVTIMEO, &tv, sizeof(tv)); //Set timer options
+
+    static uint8_t buffer[MAX_FRAME_SIZE + VPN_HEADER_SIZE]; //REVISAR TAMANY
+
+    register_(cfg, sock, tap_fd, server_addr, buffer);
+
+    authenticate_(cfg, sock, tap_fd, server_addr, buffer);
+
+    established_(cfg, sock, tap_fd, server_addr, buffer);
 
 }
 
